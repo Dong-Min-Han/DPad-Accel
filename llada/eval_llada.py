@@ -130,7 +130,7 @@ class LLaDAEvalHarness(LM):
 
         self.mask_id = mask_id
         self.eos_id = eos_id
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+        self.tokenizer = AutoTokenizer.from_pretrained('GSAI-ML/LLaDA-8B-Instruct', trust_remote_code=True)
 
         self.mc_num = mc_num
         self.batch_size = int(batch_size)

@@ -34,6 +34,7 @@ if __name__ == "__main__":
     # --- Model selection logic (unchanged) ---
     if args.model == 'instruct':
         model = 'GSAI-ML/LLaDA-8B-Instruct'
+        # model = "/home/dh783/AQLM/converted-llada-8b-instruct-2bit"
     elif args.model == 'base':
         model = 'GSAI-ML/LLaDA-8B-Base'
     elif args.model == '1.5':
@@ -84,7 +85,8 @@ if __name__ == "__main__":
     # --- [The Elegant Way] Build and execute the command using subprocess ---
 
     # 1. Build the command as a list of arguments for safety and clarity.
-    base_cmd = ['accelerate', 'launch', 'eval_llada.py']
+    # base_cmd = ['accelerate', 'launch', 'eval_llada.py']
+    base_cmd = ['python', 'eval_llada.py']
 
     task_args = ['--tasks', args.task]
     if args.task == 'humaneval':

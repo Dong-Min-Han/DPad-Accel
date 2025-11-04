@@ -27,6 +27,7 @@ import time
 def chat(args):
     device = 'cuda'
     model = LLaDAModelLM.from_pretrained('GSAI-ML/LLaDA-8B-Instruct', trust_remote_code=True, torch_dtype=torch.bfloat16).to(device).eval()
+    # model = LLaDAModelLM.from_pretrained("/home/dh783/AQLM/converted-llada-8b-instruct-2bit", trust_remote_code=True, torch_dtype=torch.bfloat16).to(device).eval() 
     tokenizer = AutoTokenizer.from_pretrained('GSAI-ML/LLaDA-8B-Instruct', trust_remote_code=True)
 
     gen_length = 512
@@ -37,12 +38,20 @@ def chat(args):
     print(f'**  Answer Length: {gen_length}  |  Sampling Steps: {steps}  **')
     print('*' * 66)
 
-    torch.manual_seed(42) # fix the random seed
-
     conversation_num = 0
     while True:
+        torch.manual_seed(42) # fix the random seed
+
         # user_input = input("Enter your question: ") # uncomment here if you actually want to chat
-        user_input = "Lily can run 12 kilometers per hour for 4 hours. After that, she runs 6 kilometers per hour. How many kilometers can she run in 8 hours?"
+
+        # user_input = "Translate the following English sentence to French: 'The quick brown fox jumps over the lazy dog.'"
+        # user_input = "Lily can run 12 kilometers per hour for 4 hours. After that, she runs 6 kilometers per hour. How many kilometers can she run in 8 hours?"
+        # user_input = "Explain the theory of relativity in simple terms."
+        # user_input = "Explain Quantum Computing in simple terms."
+        user_input = "Alice is taller than Bob, and Bob is taller than Carol. Who is the tallest?"
+        user_input = "Write a Python function that removes duplicates from a list while preserving order."
+
+        if user_input == "exit": break
 
         m = [{"role": "user", "content": user_input}]
         user_input = tokenizer.apply_chat_template(m, add_generation_prompt=True, tokenize=False)
